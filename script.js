@@ -11,6 +11,15 @@ carForm.addEventListener("submit", function (event) {
   const fuel = document.getElementById("fuel").value;
   const year = document.getElementById("year").value;
 
+  if (name.length < 3) {
+    alert("Per trumpas automobilio pavadinimas");
+    return;
+  }
+  if (price <= 0) {
+    alert("Per maža kaina");
+    return;
+  }
+
   const carCard = document.createElement("div");
   carCard.className = "car-card";
   carCard.innerHTML = `
@@ -28,17 +37,19 @@ carForm.addEventListener("submit", function (event) {
   deleteBtn.addEventListener("click", function () {
     carCard.remove();
   });
-  if (name.length < 3) {
-    alert("Per trumpas automobilio pavadinimas");
-    return;
+  if (fuel === "Benzinas") {
+    carCard.classList.add("zalias");
   }
-  if (price <= 0) {
-    alert("Per maža kaina");
-    return;
+  if (fuel === "Dyzelinas") {
+    carCard.classList.add("dyzelis");
   }
+  if (fuel === "Elektra") {
+    carCard.classList.add("elektra");
+  }
+
   carCard.appendChild(deleteBtn);
   carsDiv.appendChild(carCard);
 
   // Atstatyk formą į pradinę padėtį
-  carForm.reset;
+  carForm.reset();
 });

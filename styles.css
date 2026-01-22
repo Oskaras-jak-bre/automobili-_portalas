@@ -27,3 +27,15 @@ button {
   width: 100%;
   margin-bottom: 10px;
 }
+
+.zalias {
+  background-color: green;
+}
+
+.dyzelis {
+  background-color: gray;
+}
+
+.elektra {
+  background-color: blue;
+}
