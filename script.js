@@ -1,9 +1,16 @@
 const carForm = document.getElementById("carForm");
 const carsDiv = document.getElementById("cars");
-const istrintiprice = document.getElementById("istrinti-price");
+const skaicius = document.getElementById("skaicius");
+
+function atnaujintiSkaiciu() {
+  skaicius.textContent = carsDiv.children.length;
+}
+
+atnaujintiSkaiciu();
+
 carForm.addEventListener("submit", function (event) {
-  // Sustabdys standartine formos elgseną, neperkraus puslapio
   event.preventDefault();
+
   const name = document.getElementById("name").value.trim();
   const description = document.getElementById("description").value;
   const price = document.getElementById("price").value;
@@ -15,6 +22,7 @@ carForm.addEventListener("submit", function (event) {
     alert("Per trumpas automobilio pavadinimas");
     return;
   }
+
   if (price <= 0) {
     alert("Per maža kaina");
     return;
@@ -22,13 +30,15 @@ carForm.addEventListener("submit", function (event) {
 
   const carCard = document.createElement("div");
   carCard.className = "car-card";
+
   carCard.innerHTML = `
-  <img src=${image} alt="car">
-  <h3>${name}</h3>
-  <p>${description}</p>
-   <p>Automobilio metai: ${year}</p>
-  <p>Automobilio kaina: ${price}</p>
-  <p>Automobilio kuras: ${fuel}</p>`;
+    <img src="${image}" alt="car">
+    <h3>${name}</h3>
+    <p>${description}</p>
+    <p>Automobilio metai: ${year}</p>
+    <p>Automobilio kaina: ${price}</p>
+    <p>Automobilio kuras: ${fuel}</p>
+  `;
 
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Ištrinti";
@@ -36,20 +46,17 @@ carForm.addEventListener("submit", function (event) {
 
   deleteBtn.addEventListener("click", function () {
     carCard.remove();
+    atnaujintiSkaiciu();
   });
-  if (fuel === "Benzinas") {
-    carCard.classList.add("zalias");
-  }
-  if (fuel === "Dyzelinas") {
-    carCard.classList.add("dyzelis");
-  }
-  if (fuel === "Elektra") {
-    carCard.classList.add("elektra");
-  }
+
+  // SPALVOS PAGAL KURĄ
+  if (fuel === "Benzinas") carCard.classList.add("zalias");
+  if (fuel === "Dyzelinas") carCard.classList.add("dyzelis");
+  if (fuel === "Elektra") carCard.classList.add("elektra");
 
   carCard.appendChild(deleteBtn);
   carsDiv.appendChild(carCard);
 
-  // Atstatyk formą į pradinę padėtį
+  atnaujintiSkaiciu();
   carForm.reset();
 });
